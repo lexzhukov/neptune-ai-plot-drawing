@@ -1,0 +1,99 @@
+<div class="w-full max-w-3xl mx-auto p-4">
+  <p-card>
+    <div class="flex flex-col gap-8">
+      <div class="flex items-center gap-4">
+        <input
+          type="file"
+          class="hidden"
+          accept=".csv"
+          #uploader
+          (change)="onFileChange($event)"
+        />
+        <button pButton (click)="uploader.click()">
+          <ng-icon pButtonIcon name="lucideUpload" />
+          <span pButtonLabel>Upload</span>
+        </button>
+        @if (fileName()) {
+          <span>{{ fileName() }}</span>
+        }
+      </div>
+
+      <canvas #chart></canvas>
+
+      <button pButton class="w-full" (click)="togglePlaying()">
+        @if (playing()) {
+          <ng-icon pButtonIcon name="lucidePause" />
+        } @else {
+          <ng-icon pButtonIcon name="lucidePlay" />
+        }
+        <span pButtonLabel>{{ playing() ? 'Pause' : 'Start' }}</span>
+      </button>
+
+      <div class="grid grid-cols-2 grid-rows-2 gap-4">
+        <div class="flex flex-col">
+          <label class="font-medium" for="windowSize"> Window size (N) </label>
+          <p-inputnumber
+            inputId="windowSize"
+            [(ngModel)]="windowSize"
+            showButtons
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label class="font-medium" for="windowStart">
+            Window start (S)
+          </label>
+          <p-inputnumber
+            inputId="windowStart"
+            [(ngModel)]="windowStart"
+            showButtons
+            [min]="0"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label class="font-medium" for="stepInterval">
+            Step interval (T)
+          </label>
+          <p-inputnumber
+            inputId="stepInterval"
+            [(ngModel)]="stepInterval"
+            showButtons
+            [min]="16"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label class="font-medium" for="stepSize">Step size (P)</label>
+          <p-inputnumber
+            inputId="stepSize"
+            [(ngModel)]="stepSize"
+            showButtons
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 grid-rows-2 gap-4">
+        <div class="flex flex-col">
+          <span class="font-bold text-xl">{{ chartData().min }}</span>
+          <label class="font-medium text-slate-500" for="min">Min</label>
+        </div>
+
+        <div class="flex flex-col">
+          <span class="font-bold text-xl">{{ chartData().max }}</span>
+          <label class="font-medium text-slate-500" for="max">Max</label>
+        </div>
+
+        <div class="flex flex-col">
+          <span class="font-bold text-xl">{{ chartData().avg }}</span>
+          <label class="font-medium text-slate-500" for="avg">Avg</label>
+        </div>
+
+        <div class="flex flex-col">
+          <span class="font-bold text-xl">{{ chartData().var }}</span>
+          <label class="font-medium text-slate-500" for="avg">Var</label>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>

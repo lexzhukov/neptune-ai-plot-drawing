@@ -1,0 +1,26 @@
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+@layer base {
+  :root {
+    --background: var(--p-zinc-50);
+  }
+
+  :root[class='dark'] {
+    --background: var(--p-zinc-950);
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background min-h-screen;
+  }
+}
